@@ -1,2 +1,1 @@
-# emotionalmap
-Small project using Java for university
+Here it is our first README.md

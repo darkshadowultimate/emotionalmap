@@ -1,0 +1,2 @@
+import(eventi.txt)
+create_map(01042019-10042019)
