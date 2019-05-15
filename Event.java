@@ -11,7 +11,7 @@ public class Event {
         this.login      = login;
         this.date       = date;
         this.id         = id;
-        this.cord 		= new Coordinate(lng, lat);
+        this.coord 		= new Coordinate(lng, lat);
         this.emot       = emot;
     }
 
