@@ -39,7 +39,7 @@ public class Date {
             return false;
         }
 
-        Date date = Date.getDateObj(str);
+        Date date = Date.getDateObj(timestamp);
 
         return Date.isDate(date.getDay(), date.getMonth(), date.getYear());
     }

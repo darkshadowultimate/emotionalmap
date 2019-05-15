@@ -28,6 +28,6 @@ public class Event {
     public char getEmotion ()       { return this.emot;     }
 
     public String toString () {
-        return this.signup + " - " + this.login + " - " + this.date + " - " + this.id + " - " + this.lat + " - " + this.lng + " - " + this.emot;
+        return this.signup + " - " + this.login + " - " + this.date + " - " + this.id + " - " + this.emot;
     }
 }

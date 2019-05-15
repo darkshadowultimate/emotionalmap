@@ -81,7 +81,7 @@ public class Read {
             - c[1]  ==> the longitude of the position
             - e[5]  ==> the type of emotion
         */
-        return new Event(s, l, d, e[3], c[0], c[1], e[5].charAt(0));
+        return new Event(s, l, d, e[3], Double.parseDouble(c[0]), Double.parseDouble(c[1]), e[5].charAt(0));
     }
 
     // method for debugging
