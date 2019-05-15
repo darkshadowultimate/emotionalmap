@@ -3,6 +3,7 @@ import java.io.*;
 
 public class Read {
 
+    // return an ArrayList object representing all the lines read from the comomands name file passed as parameter
     public static ArrayList<Command> readCommands (String name_file) {
         ArrayList<Command> commands = new ArrayList<Command>();
         String line;
@@ -26,7 +27,7 @@ public class Read {
         return commands;
     }
 
-    // update the ArrayList 'event' inserting Event objects representing each line of the file eventi.txt read
+    // return an ArrayList object representing all the lines read from the event name file passed as parameter
     public static ArrayList<Event> readEvents (String name_file) {
         ArrayList<Event> list = new ArrayList<Event>();
         String line;
