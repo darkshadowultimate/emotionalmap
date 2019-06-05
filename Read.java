@@ -97,6 +97,7 @@ public class Read {
         }
     }
 
+    // just for debugging
     public static void main (String[] args) {
         ArrayList<Event> arr;
         ArrayList<Command> comm;
