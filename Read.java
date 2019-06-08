@@ -19,6 +19,7 @@ public class Read {
                     commands.add(c);
                 }
             }
+        // handle exception in case some errors occur
         } catch(FileNotFoundException exc) {
             System.out.println("File not found...");
         } catch(IOException exc) {
@@ -60,6 +61,17 @@ public class Read {
     }
 
     // the function converts all the data of the line readed from String type to the right type to create an instance of an Event Object
+    /*
+        PARAMETERS:
+
+        String[] e ==>  elements contained inside a String line representing an event
+                        Example:
+                            string line event read = "IN LOGIN 10042019 bc78x 45.465,9.191 F"
+                            String e[] = ["IN", "LOGIN", "10042019", "bc78x", "45.465,9.191", "F"]
+
+        String[] c ==>  latitude and longitude (Example: String[] c = ["45.465", "9.191"])
+
+    */
     private static Event decodeValueToFinalType(String[] e, String[] c) {
         // if a user is register in the application ==> store value true
         boolean s   = e[0].equals("IN");
