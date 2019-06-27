@@ -10,6 +10,25 @@ public class Validation {
         return false;
     }
 
+    public static boolean validatePOI(String poi) {
+        String[] split_poi = poi.split("-");
+        if(split_poi.length != 2 || !poi.contains("|") || !poi.contains("-")) {
+            return false;
+        }
+        String name = split_poi[0];
+        if(!isThereCharacter(name)) {
+            return false;
+        }
+        String[] coord = split_poi[1].split("|");
+        try {
+            double lon = Double.parseDouble(coord[0]);
+            double lat = Double.parseDouble(coord[1]);
+        } catch(Exception exc) {
+            return false;
+        }
+        return true;
+    }
+
     // return true if the String 'comm' argument is a valid command
     public static boolean validateCommand(String comm) {
         /*

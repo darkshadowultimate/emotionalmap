@@ -52,6 +52,27 @@ public class Read {
         return list;
     }
 
+    public static ArrayList<PointOfInterest> readPOI (String name_file) throws Exception {
+        ArrayList<PointOfInterest> list = new ArrayList<Event>();
+        String line;
+
+        try {
+            // creating BufferReader to read all the lines inside of the specified file passed as parameter
+            BufferedReader buff = new BufferedReader(new FileReader(name_file));
+
+            // read each line of the file until there are no left
+            while((line = buff.readLine()) != null) {
+                list.add(convertStringToPOI(line));
+            }
+            // handle exception in case some errors occur
+        } catch(FileNotFoundException exc) {
+            System.out.println("File not found...");
+        } catch(IOException exc) {
+            System.out.println("Problem with IO operations...");
+        }
+        return list;
+    }
+
     // return an Event Object representing the current line read from the file
     private static Event convertLineToEventObj(String event) {
         String[] parts = event.split(" ");
@@ -96,6 +117,16 @@ public class Read {
         return new Event(s, l, d, e[3], Double.parseDouble(c[0]), Double.parseDouble(c[1]), e[5].charAt(0));
     }
 
+    public static PointOfInterest convertStringToPOI (String poi) throws Exception {
+        if(!Validation.validatePOI(poi)) {
+            throw new Exception("The format of the points of interest it's wrong. Check them, then restart the program.");
+        }
+        String[] split_poi = poi.split("-");
+        String name = split_poi[0];
+        String[] coord = split_poi[1].split("|");
+        new PointOfInterest(coord[1], coord[0], name);
+    }
+
     // method for debugging
     public static void print_events (ArrayList<Event> l) {
         for(Event e : l) {
@@ -110,10 +141,12 @@ public class Read {
     }
 
     // just for debugging
-    public static void main (String[] args) {
+    public static void main (String[] args) throws Exception {
+        ArrayList<String> read_poi;
         ArrayList<Event> arr;
         ArrayList<Command> comm;
 
+        read_poi = Read.readPOI("./poi.txt");
         comm = Read.readCommands(args[0]);
         Read.print_commands(comm);
         arr = Read.readEvents("./eventi.txt");
