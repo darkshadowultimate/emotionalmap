@@ -14,19 +14,19 @@ public class GenerateEmotionalMaps {
      * @param firstLimit It is the the first date limit
      * @param secondLimit It is the second date limit
      */
-    public static void generateFullEmotionalMaps (ArrayList<Event> eventsList, PointOfInterest[] pointsOfInterest, Date firstLimit, Date secondLimit) {
-        double[] distances = new double[pointsOfInterest.length]; // Defining distances array for getting distances between POIs and coordinates related to an event
+    public static void generateFullEmotionalMaps (ArrayList<Event> eventsList, ArrayList<PointOfInterest> pointsOfInterest, Date firstLimit, Date secondLimit) {
+        double[] distances = new double[pointsOfInterest.size()]; // Defining distances array for getting distances between POIs and coordinates related to an event
         int pointOfInterestIndex = 0; // This variable is used to understand which is the index of the smallest item into the distances array
 
         ArrayList<Event> filteredEventsListDates = filterDates(eventsList, firstLimit, secondLimit);
 
-        for (Event singleEvent : eventsList) {
+        for (Event singleEvent : filteredEventsListDates) {
             // For each event, the function calculates the distances between each POI and the event
-            for (int count = 0; count < pointsOfInterest.length; count++) {
-                distances[count] = pointsOfInterest[count].getCoordinatePOI().getDistanceBetweenTwoPoints(singleEvent.getEventCoordinate());
+            for (int count = 0; count < pointsOfInterest.size(); count++) {
+                distances[count] = pointsOfInterest.get(count).getCoordinatePOI().getDistanceBetweenTwoPoints(singleEvent.getCoord());
             }
             pointOfInterestIndex = findSmallestIndex(distances); // Getting the index of the smallest item into the distances array
-            pointsOfInterest[pointOfInterestIndex].getRelatedEmotions().increase(singleEvent.getEmotion()); // With the found index, the function is going to get the nearest POI at the event's coordinate. Then it increases the emotion related to that POI
+            pointsOfInterest.get(pointOfInterestIndex).getRelatedEmotions().increase(singleEvent.getEmotion()); // With the found index, the function is going to get the nearest POI at the event's coordinate. Then it increases the emotion related to that POI
         }
 
         // For each POI the function prints the line with the percentages for each kind of emotion
@@ -42,8 +42,8 @@ public class GenerateEmotionalMaps {
      * @param firstLimit It is the the first date limit
      * @param secondLimit It is the second date limit
      */
-    public static void generateFilteredEmotionalMaps (ArrayList<Event> eventsList, PointOfInterest[] pointsOfInterest, Date firstLimit, Date secondLimit) {
-        double[] distances = new double[pointsOfInterest.length]; // Defining distances array for getting distances between POIs and coordinates related to an event
+    public static void generateFilteredEmotionalMaps (ArrayList<Event> eventsList, ArrayList<PointOfInterest> pointsOfInterest, Date firstLimit, Date secondLimit) {
+        double[] distances = new double[pointsOfInterest.size()]; // Defining distances array for getting distances between POIs and coordinates related to an event
         int pointOfInterestIndex = 0; // This variable is used to understand which is the index of the smallest item into the distances array
 
         ArrayList<Event> filteredEventsListDates = filterDates(eventsList, firstLimit, secondLimit); // Getting the array which contains only the events filtered by date
@@ -51,11 +51,11 @@ public class GenerateEmotionalMaps {
 
         for (Event singleEvent : filteredEventsList) {
             // For each event, the function calculates the distances between each POI and the event
-            for (int count = 0; count < pointsOfInterest.length; count++) {
-                distances[count] = pointsOfInterest[count].getCoordinatePOI().getDistanceBetweenTwoPoints(singleEvent.getEventCoordinate());
+            for (int count = 0; count < pointsOfInterest.size(); count++) {
+                distances[count] = pointsOfInterest.get(count).getCoordinatePOI().getDistanceBetweenTwoPoints(singleEvent.getCoord());
             }
             pointOfInterestIndex = findSmallestIndex(distances); // Getting the index of the smallest item into the distances array
-            pointsOfInterest[pointOfInterestIndex].getRelatedEmotions().increase(singleEvent.getEmotion()); // With the found index, the function is going to get the nearest POI at the event's coordinate. Then it increases the emotion related to that POI
+            pointsOfInterest.get(pointOfInterestIndex).getRelatedEmotions().increase(singleEvent.getEmotion()); // With the found index, the function is going to get the nearest POI at the event's coordinate. Then it increases the emotion related to that POI
         }
 
         // For each POI the function prints the line with the percentages for each kind of emotion
@@ -80,7 +80,7 @@ public class GenerateEmotionalMaps {
         ArrayList<Event> returnArray = new ArrayList<Event>();
 
         for (Event item : eventsList) {
-            if ((item.getDate().compareTo(firstLimit) == 1 || item.getDate().compareTo(firstLimit) == 0) && (item.getDate().compareTo(secondLimit) == -1 || item.getDate().compareTo(secondLimit) == 0)) {
+            if ((Date.compareTo(item.getDate(), firstLimit) == 1 || Date.compareTo(item.getDate(), firstLimit) == 0) && (Date.compareTo(item.getDate(), secondLimit) == -1 || Date.compareTo(item.getDate(), secondLimit) == 0)) {
                 returnArray.add(item);
             }
         }
@@ -93,7 +93,7 @@ public class GenerateEmotionalMaps {
      * @return It filters the events and returns onlu those which have been made by active users
      */
     private static ArrayList<Event> filterActiveUsers (ArrayList<Event> eventsList) {
-        ArrayList<event> returnArray = new ArrayLits<Evebt>();
+        ArrayList<Event> returnArray = new ArrayList<Event>();
 
         for (Event item : eventsList) {
             if (item.getLogin()) {
@@ -128,7 +128,7 @@ public class GenerateEmotionalMaps {
     private static void printSinglePOILine (PointOfInterest singlePOI, int totalEvents) {
         HashMap<Character, Integer> emotions = singlePOI.getRelatedEmotions().numeroOccorrenze();
 
-        System.out.println(singlePOI.getPOIName() + " - " + ((emotions.get(Emotions.EMOTION_A))/(double)totalEvents) + "%" + " " + Emotions.EMOTION_A + ", "
+        System.out.println(singlePOI.getPOIName() + " - " + ((emotions.get(Emotions.EMOTION_A))/(double)totalEvents)*100 + "%" + " " + Emotions.EMOTION_A + ", "
                 + ((emotions.get(Emotions.EMOTION_F))/(double)totalEvents) + "%" + " " + Emotions.EMOTION_F + ", "
                 + ((emotions.get(Emotions.EMOTION_S))/(double)totalEvents) + "%" + " " + Emotions.EMOTION_S + ", "
                 + ((emotions.get(Emotions.EMOTION_T))/(double)totalEvents) + "%" + " " + Emotions.EMOTION_T + ", "

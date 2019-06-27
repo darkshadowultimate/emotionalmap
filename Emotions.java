@@ -91,9 +91,8 @@ public class Emotions {
     /**
      * It looks for the specified emotion and increases the number of occurrences related. If the emotion is invalid, it throws an exception
      * @param emotion It identifies the emotion char
-     * @throws IllegalArgumentException It throws IllegalArgumentException whether the specified char isn't A, F, S, T or N
      */
-    public void increase (char emotion) throws IllegalArgumentException {
+    public void increase (char emotion) {
         emotion = Character.toUpperCase(emotion);
 
         switch (emotion) {
@@ -112,8 +111,6 @@ public class Emotions {
             case EMOTION_N:
                 this.countN++;
                 break;
-            default:
-                throw new IllegalArgumentException("The specified emotion doesn't exist...");
         }
     }
 }

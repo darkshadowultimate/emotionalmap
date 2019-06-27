@@ -142,6 +142,7 @@ public class Read {
     }
 
     // just for debugging
+    /*
     public static void main (String[] args) throws Exception {
         ArrayList<PointOfInterest> read_poi;
         ArrayList<Event> arr;
@@ -152,5 +153,5 @@ public class Read {
         Read.print_commands(comm);
         arr = Read.readEvents("./eventi.txt");
         Read.print_events(arr);
-    }
+    }*/
 }
