@@ -53,7 +53,7 @@ public class Read {
     }
 
     public static ArrayList<PointOfInterest> readPOI (String name_file) throws Exception {
-        ArrayList<PointOfInterest> list = new ArrayList<Event>();
+        ArrayList<PointOfInterest> list = new ArrayList<PointOfInterest>();
         String line;
 
         try {
@@ -124,7 +124,7 @@ public class Read {
         String[] split_poi = poi.split("-");
         String name = split_poi[0];
         String[] coord = split_poi[1].split("|");
-        new PointOfInterest(coord[1], coord[0], name);
+        return new PointOfInterest(Double.parseDouble(coord[1]), Double.parseDouble(coord[0]), name);
     }
 
     // method for debugging
@@ -133,6 +133,7 @@ public class Read {
             System.out.println(e + "\n");
         }
     }
+
     // method for debugging
     public static void print_commands (ArrayList<Command> l) {
         for(Command c : l) {
@@ -142,7 +143,7 @@ public class Read {
 
     // just for debugging
     public static void main (String[] args) throws Exception {
-        ArrayList<String> read_poi;
+        ArrayList<PointOfInterest> read_poi;
         ArrayList<Event> arr;
         ArrayList<Command> comm;
 

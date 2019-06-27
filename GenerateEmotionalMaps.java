@@ -6,7 +6,7 @@ import java.util.HashMap;
  * @author Stefano Cascavilla
  * It describes the class that contains the methods needed to create the emotional maps
  */
-public class EmotionalMaps {
+public class GenerateEmotionalMaps {
     /**
      * It creates the generic emotional map (no checks active users, only dates)
      * @param eventsList It is the list (described by an ArrayList) which contains all the events read from the file
