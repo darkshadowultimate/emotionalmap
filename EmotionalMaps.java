@@ -2,8 +2,18 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * @author Stefano Cascavilla
+ * It describes the class that contains the methods needed to create the emotional maps
+ */
 public class EmotionalMaps {
-    // This method creates the generic emotional map (no checks active users, only dates)
+    /**
+     * It creates the generic emotional map (no checks active users, only dates)
+     * @param eventsList It is the list (described by an ArrayList) which contains all the events read from the file
+     * @param pointsOfInterest It is the array which contains all the POI read from the file
+     * @param firstLimit It is the the first date limit
+     * @param secondLimit It is the second date limit
+     */
     public static void generateFullEmotionalMaps (ArrayList<Event> eventsList, PointOfInterest[] pointsOfInterest, Date firstLimit, Date secondLimit) {
         double[] distances = new double[pointsOfInterest.length]; // Defining distances array for getting distances between POIs and coordinates related to an event
         int pointOfInterestIndex = 0; // This variable is used to understand which is the index of the smallest item into the distances array
@@ -25,7 +35,13 @@ public class EmotionalMaps {
         }
     }
 
-    // This method creates the filtered emotional map (it checks that event is related to a logged user and it checks that the event has been made between the two argument dates)
+    /**
+     * It creates the filtered emotional map (it checks that event is related to an active user and it checks that the event has been made between the two argument dates)
+     * @param eventsList It is the list (described by an ArrayList) which contains all the events read from the file
+     * @param pointsOfInterest It is the array which contains all the POI read from the file
+     * @param firstLimit It is the the first date limit
+     * @param secondLimit It is the second date limit
+     */
     public static void generateFilteredEmotionalMaps (ArrayList<Event> eventsList, PointOfInterest[] pointsOfInterest, Date firstLimit, Date secondLimit) {
         double[] distances = new double[pointsOfInterest.length]; // Defining distances array for getting distances between POIs and coordinates related to an event
         int pointOfInterestIndex = 0; // This variable is used to understand which is the index of the smallest item into the distances array
@@ -54,7 +70,12 @@ public class EmotionalMaps {
      These functions are available only from methods within this class
     */
 
-    // This function filters the events and returns only those which have been made between two dates
+    /**
+     * @param eventsList It is the list (described by an ArrayList) which contains all the events read from the file
+     * @param firstLimit It is the the first date limit
+     * @param secondLimit It is the second date limit
+     * @return It filters the events and returns only those which have been made between two dates
+     */
     private static ArrayList<Event> filterDates (ArrayList<Event> eventsList, Date firstLimit, Date secondLimit) {
         ArrayList<Event> returnArray = new ArrayList<Event>();
 
@@ -67,7 +88,10 @@ public class EmotionalMaps {
         return returnArray;
     }
 
-    // This function filters the events and returns onlu those which have been made by active users
+    /**
+     * @param eventsList It is the list (described by an ArrayList) which contains all the events read from the file
+     * @return It filters the events and returns onlu those which have been made by active users
+     */
     private static ArrayList<Event> filterActiveUsers (ArrayList<Event> eventsList) {
         ArrayList<event> returnArray = new ArrayLits<Evebt>();
 
@@ -80,7 +104,10 @@ public class EmotionalMaps {
         return returnArray;
     }
 
-    // This functions returns the index of the smallest value into the array
+    /**
+     * @param distances It is the array that contains distances that will be compared by this method
+     * @return It returns the index of the smallest value into the array
+     */
     private static int findSmallestIndex (double[] distances) {
         int index = 0;
         double min = distances[index];
@@ -93,7 +120,11 @@ public class EmotionalMaps {
         return index ;
     }
 
-    // This functions prints a single line of the emotional maps. Example: POI1 - 67% A, 33% F, 0% S, 0% T, 0% N
+    /**
+     * It prints a single line of the emotional maps. Example: POI1 - 67% A, 33% F, 0% S, 0% T, 0% N
+     * @param singlePOI It is the single point of interest the function is printing the info about
+     * @param totalEvents It is the number of total events related to the singlePOI
+     */
     private static void printSinglePOILine (PointOfInterest singlePOI, int totalEvents) {
         HashMap<Character, Integer> emotions = singlePOI.getRelatedEmotions().numeroOccorrenze();
 
