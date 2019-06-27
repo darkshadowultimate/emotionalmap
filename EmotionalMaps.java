@@ -3,10 +3,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class EmotionalMaps {
-    // This method creates the generic emotional map (no checks for date or active users)
-    public static void generateFullEmotionalMaps (ArrayList<Event> eventsList, PointOfInterest[] pointsOfInterest) {
+    // This method creates the generic emotional map (no checks active users, only dates)
+    public static void generateFullEmotionalMaps (ArrayList<Event> eventsList, PointOfInterest[] pointsOfInterest, Date firstLimit, Date secondLimit) {
         double[] distances = new double[pointsOfInterest.length]; // Defining distances array for getting distances between POIs and coordinates related to an event
         int pointOfInterestIndex = 0; // This variable is used to understand which is the index of the smallest item into the distances array
+
+        ArrayList<Event> filteredEventsListDates = filterDates(eventsList, firstLimit, secondLimit);
 
         for (Event singleEvent : eventsList) {
             // For each event, the function calculates the distances between each POI and the event
@@ -28,7 +30,8 @@ public class EmotionalMaps {
         double[] distances = new double[pointsOfInterest.length]; // Defining distances array for getting distances between POIs and coordinates related to an event
         int pointOfInterestIndex = 0; // This variable is used to understand which is the index of the smallest item into the distances array
 
-        ArrayList<Event> filteredEventsList = filterEvents(eventsList, firstLimit, secondLimit); // Getting the array which contains only the correct events
+        ArrayList<Event> filteredEventsListDates = filterDates(eventsList, firstLimit, secondLimit); // Getting the array which contains only the events filtered by date
+        ArrayList<Event> filteredEventsList = filterActiveUsers(filteredEventsListDates);
 
         for (Event singleEvent : filteredEventsList) {
             // For each event, the function calculates the distances between each POI and the event
@@ -51,12 +54,25 @@ public class EmotionalMaps {
      These functions are available only from methods within this class
     */
 
-    // This function filters the events and returns only those which have been made between two dates and by logged users
-    private static ArrayList<Event> filterEvents (ArrayList<Event> eventsList, Date firstLimit, Date secondLimit) {
+    // This function filters the events and returns only those which have been made between two dates
+    private static ArrayList<Event> filterDates (ArrayList<Event> eventsList, Date firstLimit, Date secondLimit) {
         ArrayList<Event> returnArray = new ArrayList<Event>();
 
         for (Event item : eventsList) {
-            if (item.getLogin() && ((item.getDate().compareTo(firstLimit) == 1 || item.getDate().compareTo(firstLimit) == 0) && (item.getDate().compareTo(secondLimit) == -1 || item.getDate().compareTo(secondLimit) == 0))) {
+            if ((item.getDate().compareTo(firstLimit) == 1 || item.getDate().compareTo(firstLimit) == 0) && (item.getDate().compareTo(secondLimit) == -1 || item.getDate().compareTo(secondLimit) == 0)) {
+                returnArray.add(item);
+            }
+        }
+
+        return returnArray;
+    }
+
+    // This function filters the events and returns onlu those which have been made by active users
+    private static ArrayList<Event> filterActiveUsers (ArrayList<Event> eventsList) {
+        ArrayList<event> returnArray = new ArrayLits<Evebt>();
+
+        for (Event item : eventsList) {
+            if (item.getLogin()) {
                 returnArray.add(item);
             }
         }
@@ -82,9 +98,9 @@ public class EmotionalMaps {
         HashMap<Character, Integer> emotions = singlePOI.getRelatedEmotions().numeroOccorrenze();
 
         System.out.println(singlePOI.getPOIName() + " - " + ((emotions.get(Emotions.EMOTION_A))/(double)totalEvents) + "%" + " " + Emotions.EMOTION_A + ", "
-                                                          + ((emotions.get(Emotions.EMOTION_F))/(double)totalEvents) + "%" + " " + Emotions.EMOTION_F + ", "
-                                                          + ((emotions.get(Emotions.EMOTION_S))/(double)totalEvents) + "%" + " " + Emotions.EMOTION_S + ", "
-                                                          + ((emotions.get(Emotions.EMOTION_T))/(double)totalEvents) + "%" + " " + Emotions.EMOTION_T + ", "
-                                                          + ((emotions.get(Emotions.EMOTION_N))/(double)totalEvents) + "%" + " " + Emotions.EMOTION_N + ", ");
+                + ((emotions.get(Emotions.EMOTION_F))/(double)totalEvents) + "%" + " " + Emotions.EMOTION_F + ", "
+                + ((emotions.get(Emotions.EMOTION_S))/(double)totalEvents) + "%" + " " + Emotions.EMOTION_S + ", "
+                + ((emotions.get(Emotions.EMOTION_T))/(double)totalEvents) + "%" + " " + Emotions.EMOTION_T + ", "
+                + ((emotions.get(Emotions.EMOTION_N))/(double)totalEvents) + "%" + " " + Emotions.EMOTION_N + ", ");
     }
 }
