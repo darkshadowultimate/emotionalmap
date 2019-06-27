@@ -11,7 +11,7 @@ public class Event {
         this.login      = login;
         this.date       = date;
         this.id         = id;
-        this.cord 		= new Coordinate(lng, lat);
+        this.coord 		= new Coordinate(lng, lat);
         this.emot       = emot;
     }
 
@@ -28,6 +28,6 @@ public class Event {
     public char getEmotion ()       { return this.emot;     }
 
     public String toString () {
-        return this.signup + " - " + this.login + " - " + this.date + " - " + this.id + " - " + this.lat + " - " + this.lng + " - " + this.emot;
+        return this.signup + " - " + this.login + " - " + this.date + " - " + this.id + " - " + this.emot;
     }
 }
