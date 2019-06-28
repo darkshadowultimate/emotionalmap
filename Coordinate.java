@@ -41,23 +41,14 @@ public class Coordinate {
     }
 
     /**
-     * @see https://stackoverflow.com/questions/3694380/calculating-distance-between-two-points-using-latitude-longitude
+     * @see "https://www.mat.unical.it/calimeri/wiki/InformaticaCDLmatematica?action=AttachFile&do=get&target=20100113-Esercitazione-LAB-Punti-Cartesiani-e-Cerchi-SOLUZIONI.txt"
      * @param point It is the Coordinate obj which we want to calculate the distance from
      * @return It returns the distance between this Coordinate object and the one passed as argument
      */
     public double getDistanceBetweenTwoPoints (Coordinate point) {
-        final int R = 6371; // Radius of the earth
+        double p1 = this.latitude.doubleValue() - point.getLatitude().doubleValue();
+        double p2 = this.longitude.doubleValue() - point.getLongitude().doubleValue();
 
-        double latDistance = Math.toRadians(this.latitude.doubleValue() - point.latitude.doubleValue());
-        double lonDistance = Math.toRadians(this.longitude.doubleValue() - point.longitude.doubleValue());
-        double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
-                + Math.cos(Math.toRadians(this.latitude.doubleValue())) * Math.cos(Math.toRadians(point.latitude.doubleValue()))
-                * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
-
-        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        double distance = R * c * 1000; // convert to meters
-        distance = Math.pow(distance, 2) + Math.pow(0.0, 2);
-
-        return Math.sqrt(distance);
+        return Math.sqrt(Math.pow(p1,2) + Math.pow(p2,2));
     }
 }

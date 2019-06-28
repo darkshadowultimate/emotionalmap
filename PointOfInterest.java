@@ -1,3 +1,5 @@
+import java.util.HashMap;
+
 /**
 * @author Stefano Cascavilla
 * It describes a point of interest
@@ -49,5 +51,16 @@ public class PointOfInterest {
      */
     public Emotions getRelatedEmotions () {
         return this.relatedEmotions;
+    }
+
+
+    public int getTotalEvents () {
+        HashMap<Character, Integer> occorrenze = this.relatedEmotions.numeroOccorrenze();
+        int numeroOccorrenze = 0;
+
+        for (HashMap.Entry<Character, Integer> item : occorrenze.entrySet()) {
+            numeroOccorrenze += item.getValue();
+        }
+        return numeroOccorrenze;
     }
 }

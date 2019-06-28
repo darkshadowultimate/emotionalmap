@@ -31,7 +31,7 @@ public class GenerateEmotionalMaps {
 
         // For each POI the function prints the line with the percentages for each kind of emotion
         for (PointOfInterest singlePOI : pointsOfInterest) {
-            printSinglePOILine(singlePOI, eventsList.size());
+            printSinglePOILine(singlePOI, singlePOI.getTotalEvents());
         }
     }
 
@@ -60,7 +60,7 @@ public class GenerateEmotionalMaps {
 
         // For each POI the function prints the line with the percentages for each kind of emotion
         for (PointOfInterest singlePOI : pointsOfInterest) {
-            printSinglePOILine(singlePOI, eventsList.size());
+            printSinglePOILine(singlePOI, singlePOI.getTotalEvents());
         }
     }
 
@@ -128,10 +128,18 @@ public class GenerateEmotionalMaps {
     private static void printSinglePOILine (PointOfInterest singlePOI, int totalEvents) {
         HashMap<Character, Integer> emotions = singlePOI.getRelatedEmotions().numeroOccorrenze();
 
-        System.out.println(singlePOI.getPOIName() + " - " + ((emotions.get(Emotions.EMOTION_A))/(double)totalEvents)*100 + "%" + " " + Emotions.EMOTION_A + ", "
-                + ((emotions.get(Emotions.EMOTION_F))/(double)totalEvents) + "%" + " " + Emotions.EMOTION_F + ", "
-                + ((emotions.get(Emotions.EMOTION_S))/(double)totalEvents) + "%" + " " + Emotions.EMOTION_S + ", "
-                + ((emotions.get(Emotions.EMOTION_T))/(double)totalEvents) + "%" + " " + Emotions.EMOTION_T + ", "
-                + ((emotions.get(Emotions.EMOTION_N))/(double)totalEvents) + "%" + " " + Emotions.EMOTION_N + ", ");
+        if (totalEvents != 0) {
+            System.out.println(singlePOI.getPOIName() + " - " + ((emotions.get(Emotions.EMOTION_A))/(double)totalEvents)*100 + "%" + " " + Emotions.EMOTION_A + ", "
+                    + ((emotions.get(Emotions.EMOTION_F))/(double)totalEvents)*100 + "%" + " " + Emotions.EMOTION_F + ", "
+                    + ((emotions.get(Emotions.EMOTION_S))/(double)totalEvents)*100 + "%" + " " + Emotions.EMOTION_S + ", "
+                    + ((emotions.get(Emotions.EMOTION_T))/(double)totalEvents)*100 + "%" + " " + Emotions.EMOTION_T + ", "
+                    + ((emotions.get(Emotions.EMOTION_N))/(double)totalEvents)*100 + "%" + " " + Emotions.EMOTION_N + ", ");
+        } else {
+            System.out.println(singlePOI.getPOIName() + " - " + 0.0 + "%" + " " + Emotions.EMOTION_A + ", "
+                    + 0.0 + "%" + " " + Emotions.EMOTION_F + ", "
+                    + 0.0 + "%" + " " + Emotions.EMOTION_S + ", "
+                    + 0.0 + "%" + " " + Emotions.EMOTION_T + ", "
+                    + 0.0 + "%" + " " + Emotions.EMOTION_N + ", ");
+        }
     }
 }

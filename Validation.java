@@ -1,6 +1,13 @@
+/**
+ * @author SIMONE PAGLINO
+ * Validation class provides several method to validate lines read from different files with very specific informations and formats.
+ */
 public class Validation {
 
-    // return true if there's at least one character inside the string passed as argument
+    /**
+     * @param str A string of any format and content.
+     * @return It returns true if there's at least one character inside the string passed as argument, otherwise false.
+     */
     public static boolean isThereCharacter(String str) {
         for(char c : str.toCharArray()) {
             if(!Character.isDigit(c)) {
@@ -10,16 +17,20 @@ public class Validation {
         return false;
     }
 
+    /**
+     * @param poi A string read from a text file that represents a PointOfInterest object.
+     * @return It returns true if the argument passed is a valid PointOfInterest object, otherwise false.
+     */
     public static boolean validatePOI(String poi) {
         String[] split_poi = poi.split("-");
-        if(split_poi.length != 2 || !poi.contains("|") || !poi.contains("-")) {
+        if(split_poi.length != 2 || !poi.contains(",") || !poi.contains("-")) {
             return false;
         }
         String name = split_poi[0];
         if(!isThereCharacter(name)) {
             return false;
         }
-        String[] coord = split_poi[1].split("|");
+        String[] coord = split_poi[1].split(",");
         try {
             double lon = Double.parseDouble(coord[0]);
             double lat = Double.parseDouble(coord[1]);
@@ -29,7 +40,10 @@ public class Validation {
         return true;
     }
 
-    // return true if the String 'comm' argument is a valid command
+    /**
+     * @param comm A string read from a text file that represents a Command object.
+     * @return It returns true if the argument passed is a valid command, otherwise false.
+     */
     public static boolean validateCommand(String comm) {
         /*
             Example :
@@ -45,7 +59,12 @@ public class Validation {
 
     }
 
-    // return true if the the name of the method exists and if its arguments are valid
+    /**
+     * @param comm A string read from a text file that represents a Command object.
+     * @param str_method The name of the method.
+     * @param str_param The value of the method's paramater.
+     * @return It returns true if the the name of the method exists and if its arguments are valid, otherwise false.
+     */
     private static boolean validateCommandPossibleScenarios(String comm, String str_method, String str_param) {
         switch(str_method) {
             // if the name of the method is "import" :
@@ -76,7 +95,10 @@ public class Validation {
         }
     }
 
-    // return true if the argument of "import" method is valid
+    /**
+     * @param param The value of import method paramater (the name of the file to load) --- Example: eventi.txt .
+     * @return It returns true if the argument of "import" method is valid, otherwise false.
+     */
     private static boolean validateImport(String param) {
         /*
             - the first character hasn't to be a '.' ;
@@ -85,7 +107,10 @@ public class Validation {
         return param.charAt(0) != '.' && param.contains(".txt");
     }
 
-    // return true if the argument of "create_map" method is valid
+    /**
+     * @param param The value of create_map method paramater (the time interval composed by two timestamp) --- Example: 01012001-01022001 .
+     * @return It returns true if the argument of "create_map" method is valid, otherwise false.
+     */
     private static boolean validateCreateMap(String param) {
         // separate the first timestamp from the second one
         String[] split_param = param.split("-");
@@ -99,15 +124,18 @@ public class Validation {
         return true;
     }
 
-    // validate the elements inside the String argument 'l' representing a single event read from file
-    public static boolean validateElementsLine(String l) {
-        // separating all the info inside 'l' argument
+    /**
+     * @param elem_line A line read from a text file representing an Event object.
+     * @return It returns true if the parameter follows the correct format for a line text representing an Event object, otherwise false.
+     */
+    public static boolean validateElementsLine(String elem_line) {
+        // separating all the info inside 'elem_line' argument
         /*
             Example:
-                l       = "IN LOGIN 09042019 ac11b 45.463,9.188 A"
-                parts   = ["IN", "LOGIN", "09042019", "ac11b", "45.463,9.188", "A"]
+                elem_line   = "IN LOGIN 09042019 ac11b 45.463,9.188 A"
+                parts       = ["IN", "LOGIN", "09042019", "ac11b", "45.463,9.188", "A"]
         */
-        String[] parts = l.split(" ");
+        String[] parts = elem_line.split(" ");
         // a single line representing an event has to contain six elements to be valid
         if(parts.length != 6) {
             return false;
@@ -122,7 +150,10 @@ public class Validation {
         return true;
     }
 
-    // validation for user's id
+    /**
+     * @param id The user's id.
+     * @return It return's true if the id respects the correct format for an user's id.
+     */
     private static boolean validateUserId(String id) {
         // the length of the id has to be 5
         if(id.length() != 5) { return false; }
@@ -135,7 +166,10 @@ public class Validation {
         return true;
     }
 
-    // validation for the coordinates
+    /**
+     * @param coord A string which contain latitude and longitude separated from a comma.
+     * @return It returns true if the coordinates are valid, otherwise false.
+     */
     private static boolean validateCoordinates(String coord) {
         // separating latitude from longitude
         /*
@@ -159,12 +193,19 @@ public class Validation {
         }
     }
 
-    // an emotion to be valid has to be equal to one of the following characters (uppercase only is valid)
+    /**
+     * @param em A character representing an emotion.
+     * @return It returns true if the parameter is equal to one of the predefined characters only uppercase (A, F, S, T, N).
+     */
     private static boolean validateEmotion(char em) {
         return (em == 'A' || em == 'F' || em == 'S' || em == 'T' || em == 'N');
     }
 
-    // return true if the info with its counter (arguments) are valid ==> just for events
+    /**
+     * @param el A value contained inside a line read from eventi.txt file (or similar) --- Example: IN/OUT, LOGIN/LOGOUT, timestamp ecc.
+     * @param counter A value from 0 to 5 to distinguish the right scenario for the current element "el" passed as argument.
+     * @return It returns true if the info with its counter (arguments) are valid --- just for events, otherwise false.
+     */
     private static boolean listEventPossibleScenarios(String el, int counter) {
         /*
             0 : IN/OUT ;

@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 
+/**
+ * @author SIMONE PAGLINO - 736763 | STEFANO CASCAVILLA - 736820
+ */
 public class EmotionalMaps {
     public static void main(String[] args) throws Exception {
         ArrayList<PointOfInterest> listPoi = new ArrayList<PointOfInterest>();
