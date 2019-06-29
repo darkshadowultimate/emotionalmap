@@ -1,4 +1,4 @@
-package src.soluzione;
+package bin.soluzione;
 
 // Import HashMap data structure
 import java.util.HashMap;

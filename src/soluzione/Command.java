@@ -1,4 +1,4 @@
-package src.soluzione;
+package bin.soluzione;
 /**
  * @author SIMONE PAGLINO
  * <p>Command class represents a single line read from text file "comandi.txt" (or similar).</p>

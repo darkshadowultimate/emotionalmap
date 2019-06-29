@@ -1,4 +1,4 @@
-package src.soluzione;
+package bin.soluzione;
 
 import java.util.ArrayList;
 

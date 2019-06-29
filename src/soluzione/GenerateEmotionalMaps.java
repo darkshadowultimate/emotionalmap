@@ -1,4 +1,4 @@
-package src.soluzione;
+package bin.soluzione;
 
 // Import the two data structures needed in this class: ArrayList for the events and HashMap for the emotions related to each POI
 import java.util.ArrayList;
