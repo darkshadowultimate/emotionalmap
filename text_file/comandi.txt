@@ -1,2 +1,2 @@
-import(text_file/eventi.txt)
-create_map(01042019-12042019)
+import(text_file/pippo.txt)
+create_map(01042019-09072020)

@@ -40,11 +40,15 @@ public class EmotionalMaps {
                 break;
             }
             case "create_map" : {
-                //if(listEvent.size() == 0) { break; }
+                if(listEvent.size() == 0) {
+                    System.out.println("Non possono essere eseguite stime su 0 eventi");
+                    break;
+                }
                 String[] dates = comm.getParamater().split("-");
                 GenerateEmotionalMaps.generateFilteredEmotionalMaps(listEvent, listPoi, Date.getDateObj(dates[0]), Date.getDateObj(dates[1]));
                 System.out.println("\n----------------------------------\n");
                 GenerateEmotionalMaps.generateFullEmotionalMaps(listEvent, listPoi, Date.getDateObj(dates[0]), Date.getDateObj(dates[1]));
+                System.out.println("\n***********************************\n");
                 break;
             }
         }

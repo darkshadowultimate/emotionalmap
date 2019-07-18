@@ -26,6 +26,8 @@ public class Read {
                 Command c = Command.convertStringToCommand(line);
                 if(c != null) {
                     commands.add(c);
+                } else {
+                    System.out.println("Comando ==> " + line + ", non valido");
                 }
             }
         // handle exception in case some errors occur
@@ -133,7 +135,7 @@ public class Read {
     /**
      * @param poi A String object that represents a point of interest.
      * @return It returns a PointOfInterest object by passing as argument a String read from file representing a point of interest.
-     * @throws Exception An Exception can thrown if the filed read contains at least a point of interest not valid.
+     * @throws Exception An Exception can be thrown if the file to read contains at least a point of interest not valid.
      */
     public static PointOfInterest convertStringToPOI (String poi) throws Exception {
         if(!Validation.validatePOI(poi)) {
