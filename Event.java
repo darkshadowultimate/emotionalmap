@@ -1,5 +1,3 @@
-package bin.soluzione;
-
 /**
  * @author SIMONE PAGLINO
  * <p>Event class is the representation of the String lines read from "eventi.txt" file (or similar).</p>

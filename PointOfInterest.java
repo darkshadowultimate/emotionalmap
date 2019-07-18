@@ -1,5 +1,3 @@
-package bin.soluzione;
-
 import java.util.HashMap;
 
 /**

@@ -1,5 +1,3 @@
-package bin.soluzione;
-
 // Import the BigDecimal class. Use this type instead of double because of the precision
 import java.math.BigDecimal;
 

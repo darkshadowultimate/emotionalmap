@@ -1,5 +1,3 @@
-package bin.soluzione;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -88,14 +86,8 @@ public class Date {
      * @return It returns true if the arguments passed represent a valid Date object, otherwise false.
      */
     public static boolean isDate(int d, int m, int y) {
-        int curr_year = getCurrentDate().getYear();
-        if(y < 1900 || y > curr_year) {
-            return false;
-        }
+        if(y < 1900) { return false; }
         if(m < 1 || m > 12) { return false; }
-        if(compareTo(new Date(d, m, y), getCurrentDate()) == 1) {
-            return false;
-        }
         if(m == 4 || m == 6 || m == 9 || m == 11) {
             return (d > 0 && d < 31);
         } else if(m == 2) {
@@ -165,5 +157,9 @@ public class Date {
         int y = Integer.parseInt(date.substring(4, 8));
 
         return new Date(g, m, y);
+    }
+
+    public String toString () {
+        return "Date ==> " + this.gg + "/" + this.mm + "/" + this.yyyy;
     }
 }

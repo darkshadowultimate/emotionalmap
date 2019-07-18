@@ -1,0 +1,2 @@
+import(eventi.txt)
+create(01042019-12072020)

@@ -1,2 +1,0 @@
-import(text_file/eventi.txt)
-create_map(01042019-12042019)

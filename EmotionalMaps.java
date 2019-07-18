@@ -1,5 +1,3 @@
-package bin.soluzione;
-
 import java.util.ArrayList;
 
 /**
@@ -18,8 +16,9 @@ public class EmotionalMaps {
         ArrayList<Command> listCommand = new ArrayList<Command>();
         ArrayList<Event> listEvent = new ArrayList<Event>();
 
-        listPoi = Read.readPOI("text_file/poi.txt");
-        listCommand = Read.readCommands(args[0]);
+        listPoi = Read.readPOI("poi.txt");
+        //listCommand = Read.readCommands(args[0]);
+        listCommand = Read.readCommands("comandi.txt");
 
         for(Command comm : listCommand) {
             callMethod(listEvent, listPoi, comm);
@@ -40,7 +39,7 @@ public class EmotionalMaps {
                 break;
             }
             case "create_map" : {
-                //if(listEvent.size() == 0) { break; }
+                if(listEvent.size() == 0) { break; }
                 String[] dates = comm.getParamater().split("-");
                 GenerateEmotionalMaps.generateFilteredEmotionalMaps(listEvent, listPoi, Date.getDateObj(dates[0]), Date.getDateObj(dates[1]));
                 System.out.println("\n----------------------------------\n");

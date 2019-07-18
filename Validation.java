@@ -1,5 +1,3 @@
-package bin.soluzione;
-
 /**
  * @author SIMONE PAGLINO
  * <p>Validation class provides several method to validate lines read from different files with very specific informations and formats.</p>
