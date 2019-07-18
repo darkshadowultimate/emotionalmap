@@ -55,7 +55,10 @@ public class PointOfInterest {
         return this.relatedEmotions;
     }
 
-
+    /**
+     *  Because there is a 1 to 1 association between events and emotions (each event has associated a single emotion), if I count the number of emotions related to a POI, I'm counting the number of events associated to this POI too.
+     * @return It returns the number of events whose POI associated was this
+     */
     public int getTotalEvents () {
         HashMap<Character, Integer> occorrenze = this.relatedEmotions.numeroOccorrenze();
         int numeroOccorrenze = 0;
